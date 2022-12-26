@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookingAPI.Services
 {
-    public class LocationRepository : ILocationRepository
+    public class LocationService : ILocationProvider
     {
         public readonly DataContext _context;
 
-        public LocationRepository(DataContext context)
+        public LocationService(DataContext context)
         {
             _context = context;
         }

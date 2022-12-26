@@ -2,9 +2,11 @@
 
 namespace BookingAPI.IServices
 {
-    public interface IDeskRepository
+    public interface IDeskService
     {
         Task<IResult> GetAllDesks();
+
+        Task<IResult> GetAvailableDesks(DateTime startDate, DateTime endDate);
 
         Task<IResult> GetDeskByOfficeId(string locationId);
 

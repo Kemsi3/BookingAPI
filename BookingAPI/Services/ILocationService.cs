@@ -2,7 +2,7 @@
 
 namespace BookingAPI.IServices
 {
-    public interface ILocationRepository
+    public interface ILocationProvider
     {
         Task<IResult> DeleteLocationById(string Locationid);
 

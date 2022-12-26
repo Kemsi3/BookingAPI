@@ -2,7 +2,7 @@
 
 namespace BookingAPI
 {
-    public interface IBookingRepository
+    public interface IBookingService
     {
          Task<IResult> GetAllBookings();
 

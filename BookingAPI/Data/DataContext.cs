@@ -13,7 +13,7 @@ namespace BookingAPI
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("server=DESKTOP-BC3PM33\\SQLEXPRESS;database=BookingSystem;trusted_connection=true;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("server=DESKTOP-BC3PM33\\SQLEXPRESS;database=BookingSystem;trusted_connection=true;TrustServerCertificate=True;MultipleActiveResultSets=True") ;
         }
 
         public DbSet<Desk> Desks { get; set; }

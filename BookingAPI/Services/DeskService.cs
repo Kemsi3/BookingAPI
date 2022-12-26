@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookingAPI.Services
 {
-    public class DeskRepository : IDeskRepository
+    public class DeskService : IDeskService
     {
         public readonly DataContext _context;
 
-        public DeskRepository(DataContext context)
+        public DeskService(DataContext context)
         {
             _context = context;
         }
@@ -35,6 +35,20 @@ namespace BookingAPI.Services
             return Results.Ok();
         }
 
+        public async Task<IResult> GetAvailableDesks(DateTime startDate, DateTime endDate)
+        {
+            List<Desk> availableDesks = new List<Desk>();
+
+            foreach(Desk d in _context.Desks)
+            {
+                if (!(_context.Bookings.Any(b => b.DeskId == d.DeskId && !(b.EndDate < startDate || b.StartDate > endDate))))
+                {
+                    availableDesks.Add(d);
+                }
+            }
+            return Results.Ok(availableDesks);
+        }
+
         public async Task<IResult> GetAllDesks()
         {
             return Results.Ok(await _context.Desks.ToListAsync());
@@ -43,6 +57,12 @@ namespace BookingAPI.Services
         public async Task<IResult> GetDeskByOfficeId(string locationId)
         {
             return Results.Ok(await _context.Desks.Where(x => x.LocationId == locationId).ToListAsync());
+        }
+
+
+        public bool validateDates(DateTime reservedDateStart, DateTime reservedDateEnd, DateTime requestedDateStart, DateTime requestedDateEnd)
+        {
+            return ((reservedDateEnd < requestedDateStart || (reservedDateStart > requestedDateEnd)) && requestedDateStart < requestedDateEnd);
         }
     }
 }
