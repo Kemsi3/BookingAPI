@@ -17,7 +17,7 @@ namespace BookingAPI
         {
             foreach (Booking b in _context.Bookings.Where(b => b.DeskId == booking.DeskId))
             {
-                if (!validateDates(b.StartDate, b.EndDate, booking.StartDate, booking.EndDate))
+                if (!validateDates(b.StartDate, b.EndDate, booking.StartDate, booking.EndDate) && booking.EndDate > booking.StartDate.AddDays(7))
                     return Results.BadRequest();
             }
 
